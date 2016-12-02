@@ -9,6 +9,7 @@
 
 import fetch from 'node-fetch'
 import { splitTrimStr } from '../../utils/strHelper'
+import { isEmpty } from '../../utils/objHelper'
 
 /**
  * 数据代理
@@ -38,6 +39,9 @@ export default (options) => (ctx, next) => {
 let fetchData = async (proxyApi) => {
   let rd = undefined
   let backData = {}
+  if (isEmpty(proxyApi)) {
+    throw new Error(`The args of dataProxy do not allow empty arg`);
+  }
   switch (typeof proxyApi) {
     case 'string':
       rd = {
